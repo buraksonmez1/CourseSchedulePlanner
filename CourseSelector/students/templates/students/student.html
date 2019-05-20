@@ -1,0 +1,8 @@
+{% extends "students/base.html"%}
+{% block content%}
+    {% for st in sts %}
+      <h1>{{st.name}}</h1>
+      <p>no: {{st.no}}</p>
+      <p>gpa: {{st.gpa}}</p>
+    {% endfor %}
+{% endblock content%}

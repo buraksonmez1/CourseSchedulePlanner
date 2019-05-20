@@ -1,0 +1,68 @@
+{% extends "students/base.html"%}
+{% block content%}
+  {% for st in st_info %}
+    <h1>{{request.user.name}}</h1>
+    <p>Student no: {{st.student_no}}</p>
+    <p>Faculty: {{st.faculty}}</p>
+    <p>Department: {{st.department}}</p>
+    <p>gpa : {{st.gpa}}
+    <p>Major: {{st.major}}</p>
+    <p>Minor: {{st.minor}}</p>
+    <p>Double Major: {{st.d_major}}</p>
+    <p>Registration Date: {{st.reg_date}}</p>
+    <p>Number of Semesters: {{st.no_of_sem}}</p>
+    <p>Total credits : {{st.totalcredit}}</p>
+    <p>Given credits : {{st.givencredit}}</p>
+    <p>F credits : {{st.fcredits}}</p>
+    <p>Kardeşim mezuniyete {{st.remaining}} kredi kalmış iyisin hea</p>
+  {% endfor %}
+  <h1>---</h1>
+  {% for c in courses %}
+    {% if c.coursecode != c.short_name %}
+      <p>{{c.coursecode}} --> {{c.short_name}} {{c.long_name}} {{c.grade}}  </p>
+    {% else %}
+      <p>{{c.short_name}} {{c.long_name}} {{c.grade}}  </p>
+    {% endif %}
+  {% endfor %}
+  <h1 style="background-color:rgb(128,128,128)">Opens F's:</h1>
+  <h2>Not Elective F's:</h2>
+  {% for o in opens %}
+    {% if o.elective == None and o.section.1 == '1' and o.grade == 'F'%}
+        <p>{{o.short_name}} {{o.long_name}} {{o.instructor}} {{o.grade}} </p>
+    {% endif %}
+  {% endfor %}
+  <h2>Elective F's:</h2>
+  {% for f in fdeps %}
+    <h3>FROM {{f}}</h3>
+      {% for o in opens %}
+        {% if o.elective == f and o.section.1 == '1' %}
+          {% if o.grade == 'F' %}
+            <p style="background-color:rgb(255,0,0)">{{o.short_name}} {{o.long_name}} {{o.instructor}} {{o.grade}} </p>
+          {%else%}
+            <p>{{o.short_name}} {{o.long_name}} {{o.instructor}} </p>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+  {% endfor %}
+
+  <h1 style="background-color:rgb(128,128,128)">Open Not Takens:</h1>
+  <h2>Not Electives:</h2>
+  {% for o in opens %}
+    {% if o.elective == None and o.section.1 == '1' and o.grade == None%}
+        <p>{{o.short_name}} {{o.long_name}} {{o.instructor}} </p>
+    {% endif %}
+  {% endfor %}
+  <h2>Electives:</h2>
+  {% for f in deps %}
+    <h3>FROM {{f}}</h3>
+      {% for o in opens %}
+        {% if o.elective == f and o.section.1 == '1' and grade == None %}
+          <p>{{o.short_name}} {{o.long_name}} {{o.instructor}} </p>
+        {% endif %}
+      {% endfor %}
+  {% endfor %}
+
+
+  <p><a href="{% url 'logout' %}">logout</a></p>
+  <p><a href="{% url 'update' %}">update</a></p>
+{% endblock content%}
