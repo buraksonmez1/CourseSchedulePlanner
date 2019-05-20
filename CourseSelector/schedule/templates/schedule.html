@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<style>
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+/* Fixed sidenav, full height */
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top:51px;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn , .coursedown-btn{
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover , .coursedown-btn:hover {
+  color: #f1f1f1;
+}
+
+/* Main content */
+.main {
+  margin-left: 200px; /* Same as the
+  width of the sidenav */
+  font-size: 20px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+  background-color: green;
+  color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color: #262626;
+  padding-left: 8px;
+}
+.coursedown-container {
+ display: none;
+  background-color: #262626;
+  padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+  float: right;
+  padding-right: 8px;
+}
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Page 1</a></li>
+      <li><a href="#">Page 2</a></li>
+      <li><a href="#">Page 3</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="sidenav">
+{% for f in deps %}
+  <button class="coursedown-btn">{{f}}
+    <i class="fa fa-caret-down"></i>
+  </button>
+
+ <div class="coursedown-container">
+
+{% for o in opens %}
+      {% if o.elective == f and o.section.1 == '1' and grade == None %}
+        <a id='name' name="name" value="{{o.short_name}}">{{o.short_name}} {{o.long_name}} {{o.instructor}} </a>
+      {% csrf_token %}
+        <input type="button" name='name' value="{{o.short_name}}" class="button">
+  {% endif %}
+      {% endfor %}
+  {% endfor %}
+
+  </div>
+
+
+
+
+  <button class="dropdown-btn">Dropdown
+    <i class="fa fa-caret-down"></i>
+  </button>
+
+ <div class="dropdown-container">
+
+  </div>
+
+</div>
+
+<div class="main">
+  <h2>Course Schedule Planner </h2>
+   <table border=1 cellspacing="0" width="	800" height="400" id="schedule_table">
+
+<tr>
+ <th colspan="9" > Time Table </th>
+</tr>
+
+<tr>
+ <th> Days </th>
+ <th> 9-10 </th>
+ <th> 10-11 </th>
+ <th> 11-12 </th>
+ <th> 12-13</th>
+ <th> 13-14 </th>
+ <th> 14-15 </th>
+ <th> 15-16 </th>
+ <th> 16-17 </th>
+
+ </tr>
+
+<tr>
+
+<th> Mon</th>
+    <td id="M1">  </td>
+    <td id="M2">  </td>
+    <td id="M3">  </td>
+    <td id="M4">  </td>
+    <td id="M5">  </td>
+    <td id="M6">  </td>
+    <td id="M7">  </td>
+    <td id="M8">  </td>
+
+</tr>
+
+<tr>
+
+<th> Tue</th>
+    <td id="T1">  </td>
+    <td id="T2">  </td>
+    <td id="T3">  </td>
+    <td id="T4">  </td>
+    <td id="T5">  </td>
+    <td id="T6">  </td>
+    <td id="T7">  </td>
+    <td id="T8">  </td>
+
+</tr>
+
+
+<tr>
+
+<th> Wend</th>
+    <td id="W1">  </td>
+    <td id="W2">  </td>
+    <td id="W3">  </td>
+    <td id="W4">  </td>
+    <td id="W5">  </td>
+    <td id="W6">  </td>
+    <td id="W7">  </td>
+    <td id="W8">  </td>
+
+</tr>
+
+<tr>
+
+	<th> Thr</th>
+	<td>  </td>
+    <td id="Th1">  </td>
+    <td id="Th2">  </td>
+    <td id="Th3">  </td>
+    <td id="Th4">  </td>
+    <td id="Th5">  </td>
+    <td id="Th6">  </td>
+    <td id="Th7">  </td>
+    <td id="Th8">  </td>
+</tr>
+
+<tr>
+
+<th> Fri</th>
+	<td id="F1">  </td>
+    <td id="F2">  </td>
+    <td id="F3">  </td>
+    <td id="F4">  </td>
+    <td id="F5">  </td>
+    <td id="F6">  </td>
+    <td id="F7">  </td>
+    <td id="F8">  </td>
+
+</tr>
+
+
+
+</table>
+
+
+
+
+<tr>Choose Free Days </tr>
+
+<tr>
+<form action="/action_page.php" method="get">
+
+  <td><input type="checkbox" name="vehicle" value="Bike">  Mon. </td>
+  <td><input type="checkbox" name="vehicle" value="Bike">  Tue. </td>
+  <td><input type="checkbox" name="vehicle" value="Bike">  Wend. </td>
+  <td><input type="checkbox" name="vehicle" value="Bike">  Thue. </td>
+  <td><input type="checkbox" name="vehicle" value="Bike">  Fri. </td>
+  </form>
+</tr>
+
+<tr>
+<tr>Choose Credits</tr>
+</tr>
+
+<form action="/action_page.php" method="get">
+  <td><input type="checkbox" name="vehicle" value="Bike">  15-18. </td>
+  <td><input type="checkbox" name="vehicle" value="Bike">  18-22. </td>
+  <td><input type="checkbox" name="vehicle" value="Bike">  22-25. </td>
+  <td><input type="checkbox" name="vehicle" value="Bike">  25-27. </td>
+
+
+  </form>
+
+
+</div>
+
+
+
+<script>
+/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+  this.classList.toggle("active");
+  var dropdownContent = this.nextElementSibling;
+  if (dropdownContent.style.display === "block") {
+  dropdownContent.style.display = "none";
+  } else {
+  dropdownContent.style.display = "block";
+  }
+  });
+}
+
+var coursedown = document.getElementsByClassName("coursedown-btn");
+var t;
+
+for (t = 0; t < coursedown.length; t++) {
+  coursedown[t].addEventListener("click", function() {
+  this.classList.toggle("active");
+  var coursedownContent = this.nextElementSibling;
+  if (coursedownContent.style.display === "block") {
+  coursedownContent.style.display = "none";
+  } else {
+  coursedownContent.style.display = "block";
+  }
+  });
+}
+
+
+
+</script>
+{% block script %}
+    <script type="text/javascript">
+
+$('.coursedown-container').on('click', '.button', function (){
+
+        let value = $(this).val();
+        console.log(value);
+
+        let token = '{{csrf_token}}';
+          $.ajax({
+                headers: {"X-CSRFToken": token},
+                url: '{% url 'schedule:update_schedule' %}',
+                type: 'POST',
+                data: {
+                    'name': value,
+                },
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+
+                    //MONDAY
+
+                    if(data.place_in_schedule.includes('M1')){
+                       $( '#M1' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('M2')){
+                       $( '#M2' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('M3')){
+                       $( '#M3' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('M4')){
+                       $( '#M4' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('M5')){
+                       $( '#M5' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('M6')){
+                       $( '#M6' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('M7')){
+                       $( '#M7' ).text(value);
+                     }if(data.place_in_schedule.includes('M8')){
+                       $( '#M8' ).text(value);
+                     }
+
+
+                     //TUESDAY
+                       if(data.place_in_schedule.includes('T1')){
+                       $( '#T1' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('T2')){
+                       $( '#T2' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('T3')){
+                       $( '#T3' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('T4')){
+                       $( '#T4' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('T5')){
+                       $( '#T5' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('T6')){
+                       $( '#T6' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('T7')){
+                       $( '#T7' ).text(value);
+                     }if(data.place_in_schedule.includes('T8')){
+                       $( '#T8' ).text(value);
+                     }
+
+
+
+                     //WEDNESDAY
+
+                       if(data.place_in_schedule.includes('W1')){
+                       $( '#W1' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('W2')){
+                       $( '#W2' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('W3')){
+                       $( '#W3' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('W4')){
+                       $( '#W4' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('W5')){
+                       $( '#W5' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('W6')){
+                       $( '#W6' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('W7')){
+                       $( '#W7' ).text(value);
+                     }if(data.place_in_schedule.includes('W8')){
+                       $( '#W8' ).text(value);
+                     }
+
+
+                      //TH
+
+                       if(data.place_in_schedule.includes('Th1')){
+                       $( '#Th1' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('Th2')){
+                       $( '#Th2' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('Th3')){
+                       $( '#Th3' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('Th4')){
+                       $( '#Th4' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('Th5')){
+                       $( '#Th5' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('Th6')){
+                       $( '#Th6' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('Th7')){
+                       $( '#Th7' ).text(value);
+                     }if(data.place_in_schedule.includes('Th8')){
+                       $( '#Th8' ).text(value);
+                     }
+
+                      //FRIDAY
+
+                       if(data.place_in_schedule.includes('F1')){
+                       $( '#F1' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('F2')){
+                       $( '#F2' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('F3')){
+                       $( '#F3' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('F4')){
+                       $( '#F4' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('F5')){
+                       $( '#F5' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('F6')){
+                       $( '#F6' ).text(value);
+                     }
+                     if(data.place_in_schedule.includes('F7')){
+                       $( '#F7' ).text(value);
+                     }if(data.place_in_schedule.includes('F8')){
+                       $( '#F8' ).text(value);
+                     }
+
+                }
+            });
+    });
+
+    </script>
+
+{% endblock script %}
+
+
+</body>
+</html>

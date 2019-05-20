@@ -24,7 +24,7 @@ def home(request):
 def about(request):
     user = request.user
     #AllOpenCourses.objects.all().delete()
-    #User.objects.all().delete()
+    #User.objects.filter(username=user.username).delete()
     AllOpenCourses.opencoursescreate() #for creating the database table of all open courses.
     #requesties()
     opens = OpenCoursesForYou.objects.filter(student=user)
